@@ -64,6 +64,7 @@ public class Netflix
 
             System.out.println("Show Id\tType\tTitle\tDirector\tCast\tCountry\tDate Added\t" +
                     "Release Year\tRating\tDuration\tListed In\tDescription");
+            long startTime = System.currentTimeMillis();
             switch(choice)
             {
                 case 1:
@@ -98,7 +99,8 @@ public class Netflix
                     //In case of invalid input
                     System.out.println("Invalid Input...Try Again.");
             }
-
+            long endTime = System.currentTimeMillis();
+            System.out.println("\nTotal Execution Time: "+(endTime-startTime)+"mS");
             //Ask whether to proceed or not
             System.out.println("\nContinue?\n1. Yes\n2. No\n");
             proceed = scanner.nextInt();
