@@ -168,7 +168,7 @@ public class Netflix
         {
             return null;
         }
-        else
+        if(dateFormat.equals("MMMM d, yyyy"))
         {
             //Remove the double quotes at the beginning and end of date and trim any whitespaces
             dateStr = dateStr.substring(1,dateStr.length()-1).trim();
@@ -199,6 +199,10 @@ public class Netflix
         try
         {
             Date date = dateParser(show.getDateAdded(),"MMMM d, yyyy");
+            if(date == null)
+            {
+                return false;
+            }
             if((date.after(startDate) && date.before(endDate))
                     || date.equals(startDate)
                     || date.equals(endDate))
@@ -220,6 +224,11 @@ public class Netflix
     private static boolean isValidDateFormat(String dateStr)
     {
         String date[] = dateStr.split("-");
+
+        if(date.length<3)
+        {
+            return false;
+        }
 
         int monthDays[] = {31,28,31,30,31,30,31,31,30,31,30,31};
         int day = Integer.parseInt(date[0]);
