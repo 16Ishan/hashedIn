@@ -79,7 +79,6 @@ public class Netflix
                 case 2:
                     //Filter the list based on listedIn: Horror Movies and startDate <= dateAdded <= endDate
                     showsList.stream()
-                            .filter(show -> show.getType().equals("Movie"))
                             .filter(show -> show.getListedIn().contains("Horror Movies"))
                             .filter(Netflix::dateRange)
                             .limit(n)
