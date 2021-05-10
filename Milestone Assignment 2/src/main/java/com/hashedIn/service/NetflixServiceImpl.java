@@ -1,6 +1,6 @@
 package com.hashedIn.service;
 
-import com.hashedIn.dao.NetflixRepository;
+import com.hashedIn.repository.NetflixRepository;
 import com.hashedIn.entity.Show;
 import com.hashedIn.exception.InvalidDateFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
