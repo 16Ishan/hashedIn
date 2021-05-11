@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -149,8 +150,7 @@ public class NetflixRestController
     @PostMapping("/saveTvShows/datasource")
     public void saveTvShowsByDataSource(@RequestBody Show show,
                                         @RequestParam String source,HttpServletResponse response)
-            throws IOException, InvalidSourceException
-    {
+            throws IOException, InvalidSourceException, URISyntaxException {
         //Log the start time of the process
         long startTime = System.currentTimeMillis();
 

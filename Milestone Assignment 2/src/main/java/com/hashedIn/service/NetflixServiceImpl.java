@@ -4,9 +4,13 @@ import com.hashedIn.repository.NetflixRepository;
 import com.hashedIn.entity.Show;
 import com.hashedIn.exception.InvalidDateFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,7 +42,8 @@ public class NetflixServiceImpl implements NetflixService
     public List<Show> getShowList() throws IOException
     {
         BufferedReader netflixReader = new BufferedReader(
-                new FileReader("D:\\Downloads\\netflix_titles.csv"));
+                new InputStreamReader(getClass().getClassLoader()
+                        .getResourceAsStream("netflix_titles.csv")));
         netflixReader.readLine();
 
         List<Show> showsList = new ArrayList<>();
@@ -191,20 +196,19 @@ public class NetflixServiceImpl implements NetflixService
         Appends the Show details into the file
      */
     @Override
-    public void saveTvShowsInCsv(Show show) throws IOException
+    public void saveTvShowsInCsv(Show show) throws IOException, URISyntaxException
     {
-        File netflixFile = new File("D:\\Downloads\\netflix_titles.csv");
-        FileWriter netflixFileWriter = new FileWriter(netflixFile, true);
-        BufferedWriter netflixFileBufferedWriter = new BufferedWriter(netflixFileWriter);
+        Path netflixFilePath = Paths.get(
+                        this.getClass().getClassLoader()
+                        .getResource("netflix_titles.csv").toURI());
 
-        netflixFileBufferedWriter.write("\n"+show.getShowId()+","+show.getType()+","+show.getTitle()
+        String newNetflixShow = "\n"+show.getShowId()+","+show.getType()+","+show.getTitle()
                 +","+show.getDirector()+","+show.getCast()+","+show.getCountry()
                 +","+show.getDateAdded()+","+show.getReleaseYear()+","
                 +show.getRating()+","+show.getDuration()+","+show.getListedIn()
-                +","+show.getDescription());
+                +","+show.getDescription();
 
-        netflixFileBufferedWriter.close();
-        netflixFileWriter.close();
+        Files.write(netflixFilePath,newNetflixShow.getBytes(), StandardOpenOption.APPEND);
     }
 
     /*
