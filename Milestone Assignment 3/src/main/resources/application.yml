@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql-standalone:3306/netflix_db?allowPublicKeyRetrieval=true&useSSL=false
+    username: springstudent
+    password: springstudent
+    hikari:
+      initialization-fail-timeout: 0
