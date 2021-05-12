@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+  mysql-standalone:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=Ishan@1995
+      - MYSQL_DATABASE=netflix_db
+      - MY_SQL_USER=netflix_user
+      - MYSQL_PASSWORD=netflix_user
+
+  springboot-docker-container:
+    image: docker-spring-boot
+    ports:
+      - 8080:8080
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql-standalone
